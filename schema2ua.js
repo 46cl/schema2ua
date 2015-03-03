@@ -63,6 +63,13 @@
         }).toArray();
     };
 
+    Schema2UA.prototype.trackDetail = function (selector) {
+        var product = this.convertToProductObject(selector),
+            ga = window[window['GoogleAnalyticsObject'] || 'ga'];
+        ga('ec:addProduct', product);
+        ga('ec:setAction', 'detail');
+    };
+
     Schema2UA.prototype.trackImpressions = function (selector) {
         var products = this.findProducts(selector).slice(0, this.maxProductsPerPage),
             ga = window[window['GoogleAnalyticsObject'] || 'ga'];
@@ -85,7 +92,6 @@
         Schema2UA.call(this, options);
     };
     Schema2UAProvider.prototype = Object.create(Schema2UA.prototype);
-    Schema2UAProvider.prototype.constructor = Schema2UAProvider;
 
     ga('provide', 'schema2ua', Schema2UAProvider);
 
